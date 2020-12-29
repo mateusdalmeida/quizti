@@ -14,8 +14,7 @@ final db = FirebaseFirestore.instance;
 void showUpdateAccountAlert(BuildContext context) {
   final disciplinasController =
       Provider.of<DisciplinasController>(context, listen: false);
-  final screenController =
-      Provider.of<ScreenController>(context, listen: false);
+  final screenController = ScreenController();
 
   final userController = Provider.of<UserController>(context, listen: false);
 
