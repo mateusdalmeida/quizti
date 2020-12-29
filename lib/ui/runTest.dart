@@ -3,11 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:tcc/mobx/disciplinasController.dart';
 import 'package:tcc/mobx/questsController.dart';
 import 'package:tcc/mobx/quizController.dart';
-import 'package:tcc/mobx/screenController.dart';
 import 'package:tcc/widgets/detailsItem.dart';
 import 'package:tcc/mobx/assuntosController.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:tcc/widgets/miniButton.dart';
+import 'package:tcc/utils.dart';
 
 class RunTest extends StatelessWidget {
   final Map listOfIndex;
@@ -19,7 +19,6 @@ class RunTest extends StatelessWidget {
   Widget build(BuildContext context) {
     final questsController = Provider.of<QuestsController>(context);
     final assuntosController = Provider.of<AssuntosController>(context);
-    final screenController = Provider.of<ScreenController>(context);
     final quizController = Provider.of<QuizController>(context);
     final disciplinasController = Provider.of<DisciplinasController>(context);
 
@@ -103,9 +102,7 @@ class RunTest extends StatelessWidget {
                                   ? Colors.green
                                   : Colors.red),
                         ),
-                        Text(
-                            "Tempo: " +
-                                screenController.getHora(solvedDetails['time']),
+                        Text("Tempo: " + getHora(solvedDetails['time']),
                             style: TextStyle(fontSize: 16)),
                         respostaEscolhida(solvedDetails, quest['alternativas']),
                         solucao(quest['resolucao']),

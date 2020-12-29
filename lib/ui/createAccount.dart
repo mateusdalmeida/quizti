@@ -25,11 +25,11 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController emailController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final screenController = ScreenController();
   var _radioValue;
   @override
   Widget build(BuildContext context) {
     final disciplinasController = Provider.of<DisciplinasController>(context);
-    final screenController = Provider.of<ScreenController>(context);
     final userController = Provider.of<UserController>(context);
     disciplinasController.setDisciplinasList([]);
     return Scaffold(
@@ -144,11 +144,11 @@ class _CreateAccountState extends State<CreateAccount> {
                                 fontWeight: FontWeight.bold))),
                     Hero(
                       tag: "heroDashboard",
-                      child: RaisedButton(
-                        child: LoadingButton("Criar Conta"),
+                      child: LoadingButton(
+                        label: "Criar Conta",
                         onPressed: screenController.isLoading
                             ? null
-                            : () {
+                            : () async {
                                 List disciplinas = List();
                                 disciplinasController.disciplinasList
                                     .forEach((el) {
@@ -163,9 +163,9 @@ class _CreateAccountState extends State<CreateAccount> {
                                 }
                                 if (_formKey.currentState.validate() &&
                                     disciplinas.length != 0) {
-                                  screenController.isLoadingChange(true);
-                                  _register(userController, screenController,
-                                      disciplinas);
+                                  screenController.setIsLoading(true);
+                                  await _register(userController,
+                                      screenController, disciplinas);
                                 }
                               },
                       ),
@@ -201,8 +201,7 @@ class _CreateAccountState extends State<CreateAccount> {
         keyboardType: keyboardType);
   }
 
-  void _register(userController, screenController, List disciplinas) async {
-    print(emailController.text);
+  _register(userController, screenController, List disciplinas) async {
     try {
       final auth.User user = (await _auth.createUserWithEmailAndPassword(
         email: emailController.text,
@@ -220,8 +219,6 @@ class _CreateAccountState extends State<CreateAccount> {
         });
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Dashboard()));
-        screenController.isLoadingChange(false);
-        screenController.changeErrorFirebase("");
       }
     } catch (e) {
       print(e.message);

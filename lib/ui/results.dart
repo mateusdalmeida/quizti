@@ -6,8 +6,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc/mobx/userController.dart';
 import 'package:tcc/mobx/rankingController.dart';
-import 'package:tcc/mobx/screenController.dart';
 import 'package:tcc/widgets/miniButton.dart';
+import 'package:tcc/utils.dart';
 
 import '../main.dart';
 
@@ -35,7 +35,6 @@ class _ResultsState extends State<Results> {
   @override
   Widget build(BuildContext context) {
     final userController = Provider.of<UserController>(context);
-    final screenController = Provider.of<ScreenController>(context);
 
     final rankingController = RankingController();
     String id = InitialScreen.user.uid;
@@ -87,9 +86,7 @@ class _ResultsState extends State<Results> {
                 children: <Widget>[
                   Text("Quiz Concluído",
                       style: TextStyle(color: Colors.white, fontSize: 40)),
-                  Text(
-                      "Tempo Total: " +
-                          screenController.getHora(lastTest['time']),
+                  Text("Tempo Total: " + getHora(lastTest['time']),
                       style: TextStyle(fontSize: 25, color: Colors.white)),
                   Text("Resolvidas: " + lastTest['solved'].toString(),
                       style: TextStyle(fontSize: 25, color: Colors.white)),

@@ -43,10 +43,10 @@ class _QuizState extends State<Quiz> {
       border: Border.all(color: Colors.deepPurple, width: 4),
       borderRadius: BorderRadius.circular(30));
 
+  final screenController = ScreenController();
   @override
   Widget build(BuildContext context) {
     final questsController = Provider.of<QuestsController>(context);
-    final screenController = Provider.of<ScreenController>(context);
     final assuntosController = Provider.of<AssuntosController>(context);
 
     screenController.quizListIndex = 0;
@@ -138,7 +138,7 @@ class _QuizState extends State<Quiz> {
                               if (screenController.quizListIndex <=
                                   quests.length) {
                                 //modal de resultado
-                                _showModalSheet();
+                                _showModalSheet(screenController);
                               }
                             })
                 ]);
@@ -164,12 +164,11 @@ class _QuizState extends State<Quiz> {
             )));
   }
 
-  void _showModalSheet() {
+  void _showModalSheet(ScreenController screenController) {
     showModalBottomSheet(
         context: context,
         builder: (builder) {
           final questsController = Provider.of<QuestsController>(context);
-          final screenController = Provider.of<ScreenController>(context);
           final conquistasController =
               Provider.of<ConquistasController>(context);
           final userController = Provider.of<UserController>(context);

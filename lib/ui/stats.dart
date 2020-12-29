@@ -3,10 +3,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:tcc/mobx/rankingController.dart';
 import 'package:tcc/mobx/userController.dart';
-import 'package:tcc/mobx/screenController.dart';
 import 'package:tcc/ui/dashboard.dart';
 import 'package:tcc/ui/runTest.dart';
 import 'package:tcc/widgets/miniButton.dart';
+import 'package:tcc/utils.dart';
 
 import '../main.dart';
 
@@ -14,7 +14,6 @@ class Stats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userController = Provider.of<UserController>(context);
-    final screenController = Provider.of<ScreenController>(context);
     final rankingController = RankingController();
     String id = InitialScreen.user.uid;
     return Scaffold(
@@ -64,7 +63,7 @@ class Stats extends StatelessWidget {
                                           fontWeight: FontWeight.bold,
                                           color: Colors.grey[800])),
                                   date != null
-                                      ? Text(screenController.getData(date),
+                                      ? Text(getData(date),
                                           style: TextStyle(
                                               fontSize: 20,
                                               color: Colors.grey[800]))
@@ -78,9 +77,8 @@ class Stats extends StatelessWidget {
                                           color: Colors.grey[800])),
                                   Text(
                                       "Tempo: " +
-                                          screenController.getHora(
-                                              rankingController
-                                                  .lastTest['time']),
+                                          getHora(rankingController
+                                              .lastTest['time']),
                                       style: TextStyle(
                                           fontSize: 20,
                                           color: Colors.grey[800])),

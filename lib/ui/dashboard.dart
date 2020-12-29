@@ -6,10 +6,10 @@ import 'package:tcc/mobx/assuntosController.dart';
 import 'package:tcc/mobx/questsController.dart';
 import 'package:tcc/mobx/quizController.dart';
 import 'package:tcc/mobx/disciplinasController.dart';
-import 'package:tcc/mobx/screenController.dart';
 import 'package:tcc/mobx/userController.dart';
 import 'package:tcc/mobx/conquistasController.dart';
 import 'package:tcc/mobx/rankingController.dart';
+import 'package:tcc/utils.dart';
 import 'package:tcc/widgets/participationAlert.dart';
 import 'package:tcc/widgets/updateAccountAlert.dart';
 import 'package:tcc/ui/login.dart';
@@ -33,7 +33,6 @@ class Dashboard extends StatelessWidget {
     List<Widget> cards = List();
     final userController = Provider.of<UserController>(context);
     final quizController = Provider.of<QuizController>(context);
-    final screenController = Provider.of<ScreenController>(context);
     final disciplinasController = Provider.of<DisciplinasController>(context);
     final conquistasController = Provider.of<ConquistasController>(context);
     final rankingController = RankingController();
@@ -156,7 +155,7 @@ class Dashboard extends StatelessWidget {
                                         color: Colors.grey[800])),
                                 Text(
                                     "Tempo Total: " +
-                                        screenController.getHora(
+                                        getHora(
                                             rankingController.lastTest['time']),
                                     style: TextStyle(
                                         fontSize: 20,

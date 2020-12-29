@@ -23,11 +23,11 @@ class _LoginState extends State {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   GlobalKey<FormState> _formRecoveryKey = GlobalKey<FormState>();
 
+  final screenController = ScreenController();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final userController = Provider.of<UserController>(context);
-    final screenController = Provider.of<ScreenController>(context);
     return Scaffold(
       key: _scaffoldKey,
       body: Padding(
@@ -85,14 +85,14 @@ class _LoginState extends State {
                           ),
                     Hero(
                       tag: "heroDashboard",
-                      child: RaisedButton(
-                        child: LoadingButton("Entrar"),
+                      child: LoadingButton(
+                        label: "Entrar",
                         onPressed: screenController.isLoading
                             ? null
-                            : () {
+                            : () async {
                                 if (_formKey.currentState.validate()) {
-                                  screenController.isLoadingChange(true);
-                                  _signInWithEmailAndPassword(
+                                  screenController.setIsLoading(true);
+                                  await _signInWithEmailAndPassword(
                                       userController, screenController);
                                 }
                               },
@@ -139,9 +139,8 @@ class _LoginState extends State {
     );
   }
 
-  void _signInWithEmailAndPassword(
+  _signInWithEmailAndPassword(
       userController, ScreenController screenController) async {
-    print(emailController);
     try {
       final auth.User user = (await _auth.signInWithEmailAndPassword(
         email: emailController.text,
@@ -152,14 +151,12 @@ class _LoginState extends State {
         InitialScreen.user = user;
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Dashboard()));
-        screenController.isLoadingChange(false);
-        screenController.changeErrorFirebase("");
       }
     } catch (e) {
       print(e.message);
       print("erro");
-      screenController.isLoadingChange(false);
-      screenController.changeErrorFirebase(e.message);
+      screenController.setIsLoading(false);
+      screenController.setErrorFirebase(e.message);
     }
   }
 

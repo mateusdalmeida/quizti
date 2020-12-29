@@ -7,7 +7,6 @@ import 'package:tcc/mobx/conquistasController.dart';
 import 'package:tcc/mobx/disciplinasController.dart';
 import 'package:tcc/mobx/questsController.dart';
 import 'package:tcc/mobx/quizController.dart';
-import 'package:tcc/mobx/screenController.dart';
 import 'package:tcc/mobx/userController.dart';
 import 'package:tcc/mobx/assuntosController.dart';
 
@@ -26,8 +25,6 @@ void main() async {
       borderSide: BorderSide(color: Colors.white));
   return runApp(MultiProvider(
     providers: [
-      Provider<ScreenController>(
-          create: (_) => ScreenController(), lazy: false),
       Provider<DisciplinasController>(
           create: (_) => DisciplinasController(), lazy: false),
       Provider<ConquistasController>(

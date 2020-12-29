@@ -9,22 +9,6 @@ part of 'screenController.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ScreenController on _ScreenControllerBase, Store {
-  final _$createDashBoardAtom =
-      Atom(name: '_ScreenControllerBase.createDashBoard');
-
-  @override
-  bool get createDashBoard {
-    _$createDashBoardAtom.reportRead();
-    return super.createDashBoard;
-  }
-
-  @override
-  set createDashBoard(bool value) {
-    _$createDashBoardAtom.reportWrite(value, super.createDashBoard, () {
-      super.createDashBoard = value;
-    });
-  }
-
   final _$selectedQuestAtom = Atom(name: '_ScreenControllerBase.selectedQuest');
 
   @override
@@ -105,22 +89,22 @@ mixin _$ScreenController on _ScreenControllerBase, Store {
       ActionController(name: '_ScreenControllerBase');
 
   @override
-  dynamic isLoadingChange(bool value) {
+  dynamic setIsLoading(bool value) {
     final _$actionInfo = _$_ScreenControllerBaseActionController.startAction(
-        name: '_ScreenControllerBase.isLoadingChange');
+        name: '_ScreenControllerBase.setIsLoading');
     try {
-      return super.isLoadingChange(value);
+      return super.setIsLoading(value);
     } finally {
       _$_ScreenControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  dynamic changeErrorFirebase(String error) {
+  dynamic setErrorFirebase(String error) {
     final _$actionInfo = _$_ScreenControllerBaseActionController.startAction(
-        name: '_ScreenControllerBase.changeErrorFirebase');
+        name: '_ScreenControllerBase.setErrorFirebase');
     try {
-      return super.changeErrorFirebase(error);
+      return super.setErrorFirebase(error);
     } finally {
       _$_ScreenControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -138,42 +122,8 @@ mixin _$ScreenController on _ScreenControllerBase, Store {
   }
 
   @override
-  dynamic setCreateDashBoardAsFalse() {
-    final _$actionInfo = _$_ScreenControllerBaseActionController.startAction(
-        name: '_ScreenControllerBase.setCreateDashBoardAsFalse');
-    try {
-      return super.setCreateDashBoardAsFalse();
-    } finally {
-      _$_ScreenControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  String getHora(dynamic segundos) {
-    final _$actionInfo = _$_ScreenControllerBaseActionController.startAction(
-        name: '_ScreenControllerBase.getHora');
-    try {
-      return super.getHora(segundos);
-    } finally {
-      _$_ScreenControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  String getData(dynamic epoch) {
-    final _$actionInfo = _$_ScreenControllerBaseActionController.startAction(
-        name: '_ScreenControllerBase.getData');
-    try {
-      return super.getData(epoch);
-    } finally {
-      _$_ScreenControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
-createDashBoard: ${createDashBoard},
 selectedQuest: ${selectedQuest},
 quizListIndex: ${quizListIndex},
 errorDisciplinas: ${errorDisciplinas},

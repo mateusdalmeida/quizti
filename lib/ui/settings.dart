@@ -12,10 +12,10 @@ import 'package:tcc/widgets/loadingButton.dart';
 final db = FirebaseFirestore.instance;
 
 class Settings extends StatelessWidget {
+  final screenController = ScreenController();
   @override
   Widget build(BuildContext context) {
     final disciplinasController = Provider.of<DisciplinasController>(context);
-    final screenController = Provider.of<ScreenController>(context);
     final userController = Provider.of<UserController>(context);
 
     return Scaffold(
@@ -96,8 +96,8 @@ class Settings extends StatelessWidget {
               child: Hero(
                 tag: "settings",
                 child: Observer(builder: (context) {
-                  return RaisedButton(
-                    child: LoadingButton("Salvar Alterações"),
+                  return LoadingButton(
+                    label: "Salvar Alterações",
                     onPressed: screenController.isLoading
                         ? null
                         : () async {
@@ -111,7 +111,7 @@ class Settings extends StatelessWidget {
                                   "Escolha uma disciplina");
                             } else {
                               screenController.setErrorDisciplinas("");
-                              screenController.isLoadingChange(true);
+                              screenController.setIsLoading(true);
                               await db
                                   .collection("users")
                                   .doc(InitialScreen.user.uid)
@@ -120,7 +120,6 @@ class Settings extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => Dashboard()));
-                              screenController.isLoadingChange(false);
                             }
                           },
                   );
