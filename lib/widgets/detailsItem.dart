@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_math/flutter_math.dart';
-// import 'package:flutter_tex/flutter_tex.dart';
 import 'package:tcc/widgets/pinchZoom.dart';
 
 class DetailsItem extends StatelessWidget {
@@ -14,6 +13,7 @@ class DetailsItem extends StatelessWidget {
     item['text'] == "" ? item['text'] = null : item['text'] = item['text'];
     item['img'] == "" ? item['img'] = null : item['img'] = item['img'];
     item['latex'] == "" ? item['latex'] = null : item['latex'] = item['latex'];
+
     // item['latex'] = null;
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,8 +42,12 @@ class DetailsItem extends StatelessWidget {
           item['latex'] != null
               ? Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: Math.tex(item['latex'],
-                      textStyle: TextStyle(fontSize: bigFont ? 22 : 18)),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Math.tex(item['latex'],
+                        mathStyle: MathStyle.text,
+                        textStyle: TextStyle(fontSize: bigFont ? 22 : 18)),
+                  ),
                 )
               : SizedBox(),
         ]);
