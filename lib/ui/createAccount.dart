@@ -65,9 +65,28 @@ class _CreateAccountState extends State<CreateAccount> {
                         !screenController.isLoading,
                         keyboardType: TextInputType.number),
                     Divider(),
-                    textField(passwordController, "Senha", Icons.lock_outline,
-                        !screenController.isLoading,
-                        obscure: true),
+                    TextFormField(
+                      enabled: !screenController.isLoading,
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                          labelText: "Senha",
+                          suffixIcon: IconButton(
+                              icon: Icon(screenController.obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              color: Colors.white,
+                              onPressed: () {
+                                screenController.changeObscureText();
+                              }),
+                          prefixIcon:
+                              Icon(Icons.lock_outline, color: Colors.white)),
+                      style: TextStyle(color: Colors.white),
+                      obscureText: screenController.obscureText,
+                      validator: (value) {
+                        if (value.isEmpty) return "Senha não digitada";
+                        return null;
+                      },
+                    ),
                     Divider(),
                     Padding(
                       padding: EdgeInsets.only(left: 16.0),
@@ -181,7 +200,7 @@ class _CreateAccountState extends State<CreateAccount> {
   }
 
   Widget textField(controller, name, icon, enabled,
-      {obscure = false, TextInputType keyboardType}) {
+      {TextInputType keyboardType}) {
     return TextFormField(
         enabled: enabled,
         controller: controller,
@@ -193,7 +212,6 @@ class _CreateAccountState extends State<CreateAccount> {
           ),
         ),
         style: TextStyle(color: Colors.white),
-        obscureText: obscure,
         validator: (value) {
           if (value.isEmpty) return name + " em branco";
           return null;

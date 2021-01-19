@@ -21,11 +21,20 @@ abstract class _ScreenControllerBase with Store {
   bool isLoading = false;
 
   @observable
+  bool obscureText = true;
+
+  @observable
   String errorFirebase = "";
 
   @action
   setIsLoading(bool value) {
     isLoading = value;
+  }
+
+  @action
+  changeObscureText() {
+    obscureText = !obscureText;
+    print(obscureText);
   }
 
   @action

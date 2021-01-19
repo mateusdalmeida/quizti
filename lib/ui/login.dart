@@ -64,10 +64,18 @@ class _LoginState extends State {
                       controller: passwordController,
                       decoration: InputDecoration(
                           labelText: "Senha",
+                          suffixIcon: IconButton(
+                              icon: Icon(screenController.obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                              color: Colors.white,
+                              onPressed: () {
+                                screenController.changeObscureText();
+                              }),
                           prefixIcon:
                               Icon(Icons.lock_outline, color: Colors.white)),
                       style: TextStyle(color: Colors.white),
-                      obscureText: true,
+                      obscureText: screenController.obscureText,
                       validator: (value) {
                         if (value.isEmpty) return "Senha não digitada";
                         return null;

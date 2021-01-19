@@ -70,6 +70,21 @@ mixin _$ScreenController on _ScreenControllerBase, Store {
     });
   }
 
+  final _$obscureTextAtom = Atom(name: '_ScreenControllerBase.obscureText');
+
+  @override
+  bool get obscureText {
+    _$obscureTextAtom.reportRead();
+    return super.obscureText;
+  }
+
+  @override
+  set obscureText(bool value) {
+    _$obscureTextAtom.reportWrite(value, super.obscureText, () {
+      super.obscureText = value;
+    });
+  }
+
   final _$errorFirebaseAtom = Atom(name: '_ScreenControllerBase.errorFirebase');
 
   @override
@@ -94,6 +109,17 @@ mixin _$ScreenController on _ScreenControllerBase, Store {
         name: '_ScreenControllerBase.setIsLoading');
     try {
       return super.setIsLoading(value);
+    } finally {
+      _$_ScreenControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic changeObscureText() {
+    final _$actionInfo = _$_ScreenControllerBaseActionController.startAction(
+        name: '_ScreenControllerBase.changeObscureText');
+    try {
+      return super.changeObscureText();
     } finally {
       _$_ScreenControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -128,6 +154,7 @@ selectedQuest: ${selectedQuest},
 quizListIndex: ${quizListIndex},
 errorDisciplinas: ${errorDisciplinas},
 isLoading: ${isLoading},
+obscureText: ${obscureText},
 errorFirebase: ${errorFirebase}
     ''';
   }
