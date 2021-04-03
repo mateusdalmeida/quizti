@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_math/flutter_math.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:tcc/widgets/pinchZoom.dart';
 
 class DetailsItem extends StatelessWidget {
