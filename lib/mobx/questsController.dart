@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tcc/main.dart';
 
 part 'questsController.g.dart';
 
@@ -8,25 +7,34 @@ class QuestsController = QuestsControllerBase with _$QuestsController;
 final db = FirebaseFirestore.instance;
 
 abstract class QuestsControllerBase with Store {
-  QuestsControllerBase() {
-    db.collection("quests").snapshots().forEach((docs) {
-      docs.docChanges.forEach((changes) {
-        switch (changes.type) {
-          case DocumentChangeType.removed:
-            break;
-          default:
-            addQuestsList(changes.doc);
-            break;
-        }
-      });
-      InitialScreen.screenDataInt.value++;
-    });
-  }
+  // QuestsControllerBase() {
+  //   db.collection("quests").snapshots().forEach((docs) {
+  //     docs.docChanges.forEach((changes) {
+  //       switch (changes.type) {
+  //         case DocumentChangeType.removed:
+  //           break;
+  //         default:
+  //           addQuestsList(changes.doc);
+  //           break;
+  //       }
+  //     });
+  //     InitialScreen.screenDataInt.value++;
+  //   });
+  // }
   @observable
   ObservableList questsList = ObservableList();
 
   @observable
   ObservableList questsQuizList = ObservableList();
+
+  @action
+  void addListOfQuests(List<QueryDocumentSnapshot> quests) {
+    quests.forEach((item) {
+      Map tempQuest = item.data();
+      tempQuest['id'] = item.id;
+      questsList.add(tempQuest);
+    });
+  }
 
   @action
   addQuestsList(DocumentSnapshot item) {

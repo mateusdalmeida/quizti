@@ -1,8 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../main.dart';
-
 part 'conquistasController.g.dart';
 
 class ConquistasController = ConquistasControllerBase
@@ -10,24 +8,24 @@ class ConquistasController = ConquistasControllerBase
 final db = FirebaseFirestore.instance;
 
 abstract class ConquistasControllerBase with Store {
-  ConquistasControllerBase() {
-    db
-        .collection("conquistas")
-        .orderBy("order", descending: true)
-        .snapshots()
-        .forEach((docs) {
-      docs.docChanges.reversed.forEach((changes) {
-        switch (changes.type) {
-          case DocumentChangeType.removed:
-            break;
-          default:
-            addToList(changes.doc);
-            break;
-        }
-      });
-      InitialScreen.screenDataInt.value++;
-    });
-  }
+  // ConquistasControllerBase() {
+  //   db
+  //       .collection("conquistas")
+  //       .orderBy("order", descending: true)
+  //       .snapshots()
+  //       .forEach((docs) {
+  //     docs.docChanges.reversed.forEach((changes) {
+  //       switch (changes.type) {
+  //         case DocumentChangeType.removed:
+  //           break;
+  //         default:
+  //           addToList(changes.doc);
+  //           break;
+  //       }
+  //     });
+  //     InitialScreen.screenDataInt.value++;
+  //   });
+  // }
 
   @observable
   ObservableMap conquistasMap = ObservableMap();
@@ -35,6 +33,13 @@ abstract class ConquistasControllerBase with Store {
   @action
   void addToList(DocumentSnapshot item) {
     conquistasMap[item.id] = item.data();
+  }
+
+  @action
+  void addListOfConquistas(List<QueryDocumentSnapshot> conquistas) {
+    conquistas.forEach((item) {
+      conquistasMap[item.id] = item.data();
+    });
   }
 
   @action

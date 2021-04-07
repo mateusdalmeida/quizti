@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobx/mobx.dart';
 
-import '../main.dart';
-
 part 'disciplinasController.g.dart';
 
 final db = FirebaseFirestore.instance;
@@ -10,20 +8,14 @@ class DisciplinasController = DisciplinasControllerBase
     with _$DisciplinasController;
 
 abstract class DisciplinasControllerBase with Store {
-  DisciplinasControllerBase() {
-    db.collection("disciplinas").snapshots().forEach((docs) {
-      docs.docChanges.forEach((changes) {
-        switch (changes.type) {
-          case DocumentChangeType.removed:
-            break;
-          default:
-            addToList(changes.doc);
-            break;
-        }
-      });
-      InitialScreen.screenDataInt.value++;
-    });
-  }
+  // DisciplinasControllerBase() {
+  //   db.collection("disciplinas").get().then((value) => {
+  //         value.docs.forEach((doc) {
+  //           addToList(doc);
+  //         }),
+  //         InitialScreen.screenDataInt.value++
+  //       });
+  // }
 
   @observable
   ObservableMap disciplinasMap = ObservableMap();
@@ -47,6 +39,13 @@ abstract class DisciplinasControllerBase with Store {
   @action
   changeIsMatriculado(bool value, int index) {
     disciplinasList[index]['isMatriculado'] = value;
+  }
+
+  @action
+  void addListOfDisciplinas(List<QueryDocumentSnapshot> disciplinas) {
+    disciplinas.forEach((item) {
+      disciplinasMap[item.id] = item.data();
+    });
   }
 
   @action

@@ -40,6 +40,17 @@ mixin _$ConquistasController on ConquistasControllerBase, Store {
   }
 
   @override
+  void addListOfConquistas(List<QueryDocumentSnapshot> conquistas) {
+    final _$actionInfo = _$ConquistasControllerBaseActionController.startAction(
+        name: 'ConquistasControllerBase.addListOfConquistas');
+    try {
+      return super.addListOfConquistas(conquistas);
+    } finally {
+      _$ConquistasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic runConquistas(dynamic userData, dynamic uid, {dynamic lastTest}) {
     final _$actionInfo = _$ConquistasControllerBaseActionController.startAction(
         name: 'ConquistasControllerBase.runConquistas');

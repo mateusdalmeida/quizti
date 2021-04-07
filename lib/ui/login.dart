@@ -1,6 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
+import 'package:tcc/firebaseHandlers.dart';
+import 'package:tcc/mobx/assuntosController.dart';
+import 'package:tcc/mobx/conquistasController.dart';
+import 'package:tcc/mobx/questsController.dart';
+import 'package:tcc/mobx/quizController.dart';
 import 'package:tcc/mobx/screenController.dart';
 import 'package:tcc/mobx/userController.dart';
 import 'package:tcc/ui/createAccount.dart';
@@ -27,6 +33,10 @@ class _LoginState extends State {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    final assuntosController = Provider.of<AssuntosController>(context);
+    final conquistasController = Provider.of<ConquistasController>(context);
+    final questsController = Provider.of<QuestsController>(context);
+    final quizController = Provider.of<QuizController>(context);
     final userController = Provider.of<UserController>(context);
     return Scaffold(
       key: _scaffoldKey,
@@ -100,8 +110,44 @@ class _LoginState extends State {
                             : () async {
                                 if (_formKey.currentState.validate()) {
                                   screenController.setIsLoading(true);
-                                  await _signInWithEmailAndPassword(
-                                      userController, screenController);
+                                  try {
+                                    final auth.User user =
+                                        (await _auth.signInWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    ))
+                                            .user;
+                                    if (user != null) {
+                                      InitialScreen.user = user;
+                                      DocumentSnapshot userFirestore =
+                                          await getUserById(user.uid);
+                                      var assuntos = await getAssuntos();
+                                      var conquistas = await getConquistas();
+                                      var quests = await getQuests();
+                                      var quizzes = await getQuizzes();
+
+                                      assuntosController
+                                          .addListOfAsssuntos(assuntos.docs);
+                                      conquistasController
+                                          .addListOfConquistas(conquistas.docs);
+                                      questsController
+                                          .addListOfQuests(quests.docs);
+                                      quizController
+                                          .addListOfQuizzes(quizzes.docs);
+                                      userController.setUser(userFirestore);
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Dashboard()));
+                                    }
+                                  } catch (e) {
+                                    print(e.message);
+                                    print("erro");
+                                    screenController.setIsLoading(false);
+                                    screenController
+                                        .setErrorFirebase(e.message);
+                                  }
                                 }
                               },
                       ),
@@ -145,27 +191,6 @@ class _LoginState extends State {
         ),
       ),
     );
-  }
-
-  _signInWithEmailAndPassword(
-      userController, ScreenController screenController) async {
-    try {
-      final auth.User user = (await _auth.signInWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      ))
-          .user;
-      if (user != null) {
-        InitialScreen.user = user;
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Dashboard()));
-      }
-    } catch (e) {
-      print(e.message);
-      print("erro");
-      screenController.setIsLoading(false);
-      screenController.setErrorFirebase(e.message);
-    }
   }
 
   void _showModalSheet() {

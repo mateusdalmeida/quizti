@@ -67,6 +67,17 @@ mixin _$DisciplinasController on DisciplinasControllerBase, Store {
   }
 
   @override
+  void addListOfDisciplinas(List<QueryDocumentSnapshot> disciplinas) {
+    final _$actionInfo = _$DisciplinasControllerBaseActionController
+        .startAction(name: 'DisciplinasControllerBase.addListOfDisciplinas');
+    try {
+      return super.addListOfDisciplinas(disciplinas);
+    } finally {
+      _$DisciplinasControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void addToList(DocumentSnapshot item) {
     final _$actionInfo = _$DisciplinasControllerBaseActionController
         .startAction(name: 'DisciplinasControllerBase.addToList');

@@ -39,6 +39,28 @@ mixin _$UserController on UserControllerBase, Store {
   }
 
   @override
+  void addListOfUsers(List<QueryDocumentSnapshot> users) {
+    final _$actionInfo = _$UserControllerBaseActionController.startAction(
+        name: 'UserControllerBase.addListOfUsers');
+    try {
+      return super.addListOfUsers(users);
+    } finally {
+      _$UserControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setUser(DocumentSnapshot user) {
+    final _$actionInfo = _$UserControllerBaseActionController.startAction(
+        name: 'UserControllerBase.setUser');
+    try {
+      return super.setUser(user);
+    } finally {
+      _$UserControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void addToList(DocumentSnapshot item) {
     final _$actionInfo = _$UserControllerBaseActionController.startAction(
         name: 'UserControllerBase.addToList');

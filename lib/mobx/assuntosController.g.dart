@@ -28,6 +28,17 @@ mixin _$AssuntosController on AssuntosControllerBase, Store {
       ActionController(name: 'AssuntosControllerBase');
 
   @override
+  void addListOfAsssuntos(List<QueryDocumentSnapshot> assuntos) {
+    final _$actionInfo = _$AssuntosControllerBaseActionController.startAction(
+        name: 'AssuntosControllerBase.addListOfAsssuntos');
+    try {
+      return super.addListOfAsssuntos(assuntos);
+    } finally {
+      _$AssuntosControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic addToAssuntosMap(DocumentSnapshot item) {
     final _$actionInfo = _$AssuntosControllerBaseActionController.startAction(
         name: 'AssuntosControllerBase.addToAssuntosMap');

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tcc/firebaseHandlers.dart';
 
 import 'package:tcc/mobx/conquistasController.dart';
 import 'package:tcc/mobx/disciplinasController.dart';
@@ -25,16 +26,12 @@ void main() async {
       borderSide: BorderSide(color: Colors.white));
   return runApp(MultiProvider(
     providers: [
-      Provider<DisciplinasController>(
-          create: (_) => DisciplinasController(), lazy: false),
-      Provider<ConquistasController>(
-          create: (_) => ConquistasController(), lazy: false),
-      Provider<AssuntosController>(
-          create: (_) => AssuntosController(), lazy: false),
-      Provider<QuestsController>(
-          create: (_) => QuestsController(), lazy: false),
-      Provider<UserController>(create: (_) => UserController(), lazy: false),
-      Provider<QuizController>(create: (_) => QuizController(), lazy: false),
+      Provider<DisciplinasController>(create: (_) => DisciplinasController()),
+      Provider<ConquistasController>(create: (_) => ConquistasController()),
+      Provider<AssuntosController>(create: (_) => AssuntosController()),
+      Provider<QuestsController>(create: (_) => QuestsController()),
+      Provider<UserController>(create: (_) => UserController()),
+      Provider<QuizController>(create: (_) => QuizController()),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -70,20 +67,50 @@ void main() async {
 
 class InitialScreen extends StatelessWidget {
   static auth.User user;
-  static ValueNotifier<int> screenDataInt = ValueNotifier(0);
 
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: InitialScreen.screenDataInt,
-        builder: (ctx, value, child) {
-          if (value >= 6) {
-            if (InitialScreen.user != null) {
-              return Dashboard();
-            } else {
-              return Login();
-            }
-          }
+    final assuntosController = Provider.of<AssuntosController>(context);
+    final conquistasController = Provider.of<ConquistasController>(context);
+    final disciplinasController = Provider.of<DisciplinasController>(context);
+    final questsController = Provider.of<QuestsController>(context);
+    final quizController = Provider.of<QuizController>(context);
+    final userController = Provider.of<UserController>(context);
+
+    return FutureBuilder(
+      future: getDisciplinas(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData)
           return Loading();
-        });
+        else {
+          disciplinasController.addListOfDisciplinas(snapshot.data.docs);
+          if (InitialScreen.user != null) {
+            return FutureBuilder(
+                future: Future.wait([
+                  getAssuntos(),
+                  getConquistas(),
+                  getQuests(),
+                  getQuizzes(),
+                  getUserById(user.uid)
+                ]),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Loading();
+                  } else {
+                    assuntosController
+                        .addListOfAsssuntos(snapshot.data[0].docs);
+                    conquistasController
+                        .addListOfConquistas(snapshot.data[1].docs);
+                    questsController.addListOfQuests(snapshot.data[2].docs);
+                    quizController.addListOfQuizzes(snapshot.data[3].docs);
+                    userController.setUser(snapshot.data[4]);
+                    return Dashboard();
+                  }
+                });
+          } else {
+            return Login();
+          }
+        }
+      },
+    );
   }
 }

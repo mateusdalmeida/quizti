@@ -43,6 +43,17 @@ mixin _$QuizController on QuizControllerBase, Store {
       ActionController(name: 'QuizControllerBase');
 
   @override
+  void addListOfQuizzes(List<QueryDocumentSnapshot> quizzes) {
+    final _$actionInfo = _$QuizControllerBaseActionController.startAction(
+        name: 'QuizControllerBase.addListOfQuizzes');
+    try {
+      return super.addListOfQuizzes(quizzes);
+    } finally {
+      _$QuizControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic addToQuizzesMap(DocumentSnapshot item) {
     final _$actionInfo = _$QuizControllerBaseActionController.startAction(
         name: 'QuizControllerBase.addToQuizzesMap');

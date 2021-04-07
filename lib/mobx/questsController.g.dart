@@ -44,6 +44,17 @@ mixin _$QuestsController on QuestsControllerBase, Store {
       ActionController(name: 'QuestsControllerBase');
 
   @override
+  void addListOfQuests(List<QueryDocumentSnapshot> quests) {
+    final _$actionInfo = _$QuestsControllerBaseActionController.startAction(
+        name: 'QuestsControllerBase.addListOfQuests');
+    try {
+      return super.addListOfQuests(quests);
+    } finally {
+      _$QuestsControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic addQuestsList(DocumentSnapshot item) {
     final _$actionInfo = _$QuestsControllerBaseActionController.startAction(
         name: 'QuestsControllerBase.addQuestsList');

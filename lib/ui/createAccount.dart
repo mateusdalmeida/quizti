@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tcc/firebaseHandlers.dart';
+import 'package:tcc/mobx/assuntosController.dart';
+import 'package:tcc/mobx/conquistasController.dart';
+import 'package:tcc/mobx/questsController.dart';
+import 'package:tcc/mobx/quizController.dart';
 import 'package:tcc/mobx/userController.dart';
 import 'package:tcc/ui/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -29,7 +34,11 @@ class _CreateAccountState extends State<CreateAccount> {
   var _radioValue;
   @override
   Widget build(BuildContext context) {
+    final assuntosController = Provider.of<AssuntosController>(context);
+    final conquistasController = Provider.of<ConquistasController>(context);
     final disciplinasController = Provider.of<DisciplinasController>(context);
+    final questsController = Provider.of<QuestsController>(context);
+    final quizController = Provider.of<QuizController>(context);
     final userController = Provider.of<UserController>(context);
     disciplinasController.setDisciplinasList([]);
     return Scaffold(
@@ -183,8 +192,57 @@ class _CreateAccountState extends State<CreateAccount> {
                                 if (_formKey.currentState.validate() &&
                                     disciplinas.length != 0) {
                                   screenController.setIsLoading(true);
-                                  await _register(userController,
-                                      screenController, disciplinas);
+                                  try {
+                                    final auth.User user = (await _auth
+                                            .createUserWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    ))
+                                        .user;
+                                    if (user != null) {
+                                      InitialScreen.user = user;
+                                      await db
+                                          .collection("users")
+                                          .doc(user.uid)
+                                          .set({
+                                        'name': nameController.text,
+                                        'age': ageController.text,
+                                        'sexo': _radioValue,
+                                        'tipo': 'aluno',
+                                        'disciplinas': disciplinas
+                                      });
+
+                                      DocumentSnapshot userFirestore =
+                                          await getUserById(user.uid);
+
+                                      var assuntos = await getAssuntos();
+                                      var conquistas = await getConquistas();
+                                      var quests = await getQuests();
+                                      var quizzes = await getQuizzes();
+
+                                      assuntosController
+                                          .addListOfAsssuntos(assuntos.docs);
+                                      conquistasController
+                                          .addListOfConquistas(conquistas.docs);
+                                      questsController
+                                          .addListOfQuests(quests.docs);
+                                      quizController
+                                          .addListOfQuizzes(quizzes.docs);
+                                      userController.setUser(userFirestore);
+
+                                      Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Dashboard()));
+                                    }
+                                  } catch (e) {
+                                    print(e.message);
+                                    print("erro");
+                                    screenController.setIsLoading(false);
+                                    screenController
+                                        .setErrorFirebase(e.message);
+                                  }
                                 }
                               },
                       ),
@@ -217,32 +275,5 @@ class _CreateAccountState extends State<CreateAccount> {
           return null;
         },
         keyboardType: keyboardType);
-  }
-
-  _register(userController, screenController, List disciplinas) async {
-    try {
-      final auth.User user = (await _auth.createUserWithEmailAndPassword(
-        email: emailController.text,
-        password: passwordController.text,
-      ))
-          .user;
-      if (user != null) {
-        InitialScreen.user = user;
-        await db.collection("users").doc(user.uid).set({
-          'name': nameController.text,
-          'age': ageController.text,
-          'sexo': _radioValue,
-          'tipo': 'aluno',
-          'disciplinas': disciplinas
-        });
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Dashboard()));
-      }
-    } catch (e) {
-      print(e.message);
-      print("erro");
-      screenController.isLoadingChange(false);
-      screenController.changeErrorFirebase(e.message);
-    }
   }
 }

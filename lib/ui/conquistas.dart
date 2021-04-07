@@ -23,11 +23,11 @@ class Conquistas extends StatelessWidget {
             children: <Widget>[
               Hero(
                 tag: "conquistasText",
-                              child: Material(
-                                type: MaterialType.transparency,
-                                                              child: Text("Conquistas",
-                    style: TextStyle(color: Colors.white, fontSize: 40)),
-                              ),
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: Text("Conquistas",
+                      style: TextStyle(color: Colors.white, fontSize: 40)),
+                ),
               ),
               Observer(
                 builder: (context) {
@@ -77,12 +77,23 @@ class Conquistas extends StatelessWidget {
                             title: Text(conquistas[index]['name'],
                                 style: TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold)),
-                            subtitle: Text(
-                                conquistas[index]['description'] +
-                                    "\n" +
-                                    percent.toStringAsFixed(2) +
-                                    " % já possuem",
-                                style: TextStyle(fontSize: 20)),
+                            subtitle: Visibility(
+                              visible: conquistas[index]['realizaram'] == 1,
+                              child: Text(
+                                  conquistas[index]['description'] +
+                                      "\n" +
+                                      conquistas[index]['realizaram']
+                                          .toString() +
+                                      " usuario",
+                                  style: TextStyle(fontSize: 20)),
+                              replacement: Text(
+                                  conquistas[index]['description'] +
+                                      "\n" +
+                                      conquistas[index]['realizaram']
+                                          .toString() +
+                                      " usuarios",
+                                  style: TextStyle(fontSize: 20)),
+                            ),
                             isThreeLine: true,
                           ),
                         );
@@ -94,7 +105,7 @@ class Conquistas extends StatelessWidget {
               SizedBox(height: 8),
               Hero(
                 tag: "conquistas",
-                              child: RaisedButton(
+                child: RaisedButton(
                   child: Text("Voltar pro Inicio"),
                   onPressed: () {
                     Navigator.push(context,
