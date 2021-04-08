@@ -87,7 +87,7 @@ class UserConquistas extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Hero(
           tag: userController.usersMap[id]['name'],
-          child: RaisedButton(
+          child: ElevatedButton(
             child: Text("Voltar"),
             onPressed: () {
               Navigator.pop(context);

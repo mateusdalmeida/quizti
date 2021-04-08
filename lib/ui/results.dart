@@ -46,7 +46,7 @@ class _ResultsState extends State<Results> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               child: Text("Resultado detalhado"),
               onPressed: () {
                 Navigator.push(
@@ -59,7 +59,7 @@ class _ResultsState extends State<Results> {
             SizedBox(height: 16),
             Hero(
               tag: "heroDashboard",
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text("Voltar pro Inicio"),
                 onPressed: () {
                   Navigator.push(context,

@@ -14,6 +14,7 @@ import 'package:tcc/ui/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:tcc/main.dart';
 import 'package:tcc/widgets/loadingButton.dart';
+import 'package:tcc/widgets/miniButton.dart';
 
 final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
 
@@ -153,7 +154,7 @@ class _LoginState extends State {
                       ),
                     ),
                     Divider(),
-                    RaisedButton(
+                    ElevatedButton(
                       child: Hero(
                           tag: "createAccountText",
                           child: Material(
@@ -203,58 +204,52 @@ class _LoginState extends State {
         builder: (BuildContext context) {
           return Padding(
             padding: EdgeInsets.all(16),
-            child: Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: Form(
-                key: _formRecoveryKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text("Recuperar Senha",
-                        style:
-                            TextStyle(fontSize: 35, color: Colors.deepPurple)),
-                    Divider(),
-                    TextFormField(
-                      autofocus: true,
-                      controller: emailRecoveryController,
-                      decoration: InputDecoration(
-                        labelText: "Email",
-                        labelStyle: TextStyle(color: Colors.deepPurple),
-                        prefixIcon: Icon(
-                          Icons.alternate_email,
-                          color: Colors.deepPurple,
-                        ),
-                        enabledBorder: recoveryBorder,
-                        focusedBorder: recoveryBorder,
+            child: Form(
+              key: _formRecoveryKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text("Recuperar Senha",
+                      style: TextStyle(fontSize: 35, color: Colors.deepPurple)),
+                  Divider(),
+                  TextFormField(
+                    autofocus: true,
+                    controller: emailRecoveryController,
+                    cursorColor: Colors.deepPurple,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      labelStyle: TextStyle(color: Colors.deepPurple),
+                      prefixIcon: Icon(
+                        Icons.alternate_email,
+                        color: Colors.deepPurple,
                       ),
-                      style: TextStyle(color: Colors.deepPurple),
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value.isEmpty) return "Email não digitado";
-                        return null;
-                      },
+                      enabledBorder: recoveryBorder,
+                      focusedBorder: recoveryBorder,
                     ),
-                    Divider(),
-                    MaterialButton(
-                      elevation: 0,
-                      minWidth: double.infinity,
-                      color: Colors.deepPurple,
-                      textColor: Colors.white,
-                      child: Text("Enviar"),
-                      onPressed: () async {
-                        if (_formRecoveryKey.currentState.validate()) {
-                          await _auth.sendPasswordResetEmail(
-                            email: emailRecoveryController.text,
-                          );
-                          Navigator.pop(context);
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                              content: Text('Recuperação enviada por email')));
-                          emailRecoveryController.text = "";
-                        }
-                      },
-                    )
-                  ],
-                ),
+                    style: TextStyle(color: Colors.deepPurple),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value.isEmpty) return "Email não digitado";
+                      return null;
+                    },
+                  ),
+                  Divider(),
+                  MiniButton(
+                    "Enviar",
+                    minWidth: double.infinity,
+                    onPressed: () async {
+                      if (_formRecoveryKey.currentState.validate()) {
+                        await _auth.sendPasswordResetEmail(
+                          email: emailRecoveryController.text,
+                        );
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('Recuperação enviada por email')));
+                        emailRecoveryController.text = "";
+                      }
+                    },
+                  )
+                ],
               ),
             ),
           );

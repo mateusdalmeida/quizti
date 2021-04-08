@@ -166,6 +166,7 @@ class _QuizState extends State<Quiz> {
 
   void _showModalSheet(ScreenController screenController) {
     showModalBottomSheet(
+        enableDrag: false,
         context: context,
         builder: (builder) {
           final questsController = Provider.of<QuestsController>(context);
@@ -179,18 +180,17 @@ class _QuizState extends State<Quiz> {
                   .toString() ==
               screenController.selectedQuest.toString()) {
             isCorrect = true;
-            result = 'Parabens a resposta está correta';
+            result = 'Parabéns, a resposta está correta';
           } else {
             isCorrect = false;
-            result = 'Resposta errada';
+            result = 'Resposta incorreta';
           }
           return WillPopScope(
-            onWillPop: () async => false,
-            child: Container(
-              height: MediaQuery.of(context).size.height / 4,
-              child: StreamBuilder(builder: (context, snapshot) {
-                return ListView(
-                  padding: EdgeInsets.all(16),
+              onWillPop: () async => false,
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(result,
                         style: TextStyle(
@@ -199,7 +199,8 @@ class _QuizState extends State<Quiz> {
                             color: Colors.grey[800])),
                     SizedBox(height: 16),
                     //botao para avançar
-                    RaisedButton(
+                    MaterialButton(
+                      minWidth: double.infinity,
                       elevation: 0,
                       color: Colors.deepPurple,
                       textColor: Colors.white,
@@ -278,10 +279,8 @@ class _QuizState extends State<Quiz> {
                       },
                     )
                   ],
-                );
-              }),
-            ),
-          );
+                ),
+              ));
         });
   }
 }

@@ -177,7 +177,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         onPressed: screenController.isLoading
                             ? null
                             : () async {
-                                List disciplinas = List();
+                                List disciplinas = [];
                                 disciplinasController.disciplinasList
                                     .forEach((el) {
                                   if (el['isMatriculado'])

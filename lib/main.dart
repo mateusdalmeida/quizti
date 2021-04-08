@@ -51,6 +51,21 @@ void main() async {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30)))),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(Colors.black87),
+            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0))),
+            overlayColor: MaterialStateProperty.all(Colors.grey[300]),
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.disabled))
+                  return Colors.deepPurple[800];
+                return Colors.white;
+              },
+            ),
+            padding: MaterialStateProperty.all(EdgeInsets.all(20)),
+          )),
           buttonTheme: ButtonThemeData(
               buttonColor: Colors.white,
               padding: EdgeInsets.all(20),
@@ -60,7 +75,8 @@ void main() async {
           dividerColor: Colors.transparent,
           buttonColor: Colors.white,
           accentColor: Colors.white,
-          cursorColor: Colors.white),
+          textSelectionTheme:
+              TextSelectionThemeData(cursorColor: Colors.white)),
     ),
   ));
 }

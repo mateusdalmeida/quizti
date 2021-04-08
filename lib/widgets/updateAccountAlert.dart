@@ -82,7 +82,7 @@ void showUpdateAccountAlert(BuildContext context) {
           MiniButton(
             "Salvar",
             onPressed: () async {
-              List disciplinas = List();
+              List disciplinas = [];
               disciplinasController.disciplinasList.forEach((el) {
                 if (el['isMatriculado']) disciplinas.add(el['id']);
               });

@@ -115,7 +115,7 @@ class Ranking extends StatelessWidget {
               SizedBox(height: 8),
               Hero(
                 tag: "ranking",
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text("Voltar pro Inicio"),
                   onPressed: () {
                     Navigator.push(context,

@@ -39,7 +39,7 @@ class Settings extends StatelessWidget {
         child: Hero(
           tag: "heroDashboard",
           child: Observer(builder: (context) {
-            return RaisedButton(
+            return ElevatedButton(
               child: Text("Voltar pro Inicio"),
               onPressed: screenController.isLoading
                   ? null
@@ -101,7 +101,7 @@ class Settings extends StatelessWidget {
                     onPressed: screenController.isLoading
                         ? null
                         : () async {
-                            List disciplinas = List();
+                            List disciplinas = [];
                             disciplinasController.disciplinasList.forEach((el) {
                               if (el['isMatriculado'])
                                 disciplinas.add(el['id']);

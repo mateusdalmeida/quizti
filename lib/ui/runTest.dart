@@ -114,7 +114,7 @@ class RunTest extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: RaisedButton(
+        child: ElevatedButton(
           child: Text("Voltar"),
           onPressed: () {
             Navigator.pop(context);

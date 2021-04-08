@@ -40,9 +40,6 @@ class Conquistas extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: conquistas.length,
                       itemBuilder: (context, index) {
-                        double percent = (conquistas[index]['realizaram'] /
-                                userController.usersMap.length) *
-                            100;
                         bool concluiu;
                         if (userController.usersMap[InitialScreen.user.uid]
                                 ['conquistas'] ==
@@ -105,7 +102,7 @@ class Conquistas extends StatelessWidget {
               SizedBox(height: 8),
               Hero(
                 tag: "conquistas",
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text("Voltar pro Inicio"),
                   onPressed: () {
                     Navigator.push(context,

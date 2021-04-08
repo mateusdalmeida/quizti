@@ -30,7 +30,7 @@ final auth.FirebaseAuth _auth = auth.FirebaseAuth.instance;
 class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Widget> cards = List();
+    List<Widget> cards = [];
     final userController = Provider.of<UserController>(context);
     final quizController = Provider.of<QuizController>(context);
     final disciplinasController = Provider.of<DisciplinasController>(context);
@@ -56,7 +56,7 @@ class Dashboard extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
           child: Hero(
             tag: "heroDashboard",
-            child: RaisedButton(
+            child: ElevatedButton(
                 child: Text("Sair"),
                 onPressed: () {
                   _auth.signOut().then((value) => Navigator.of(context)
@@ -78,7 +78,7 @@ class Dashboard extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: IntrinsicHeight(
                     child: Observer(builder: (_) {
-                      cards = List();
+                      cards = [];
                       quizController.quizList.forEach((quiz) {
                         cards.add(
                           quizCard(quiz, context),

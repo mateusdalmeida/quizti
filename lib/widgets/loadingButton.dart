@@ -14,7 +14,7 @@ class _LoadingButtonState extends State<LoadingButton> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return ElevatedButton(
       child: Visibility(
         visible: !isLoading,
         child:

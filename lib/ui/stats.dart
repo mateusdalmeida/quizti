@@ -103,7 +103,7 @@ class Stats extends StatelessWidget {
               SizedBox(height: 8),
               Hero(
                 tag: "statsBtn",
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text("Voltar pro Inicio"),
                   onPressed: () {
                     Navigator.pushReplacement(context,
