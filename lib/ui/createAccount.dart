@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/firebaseHandlers.dart';
-import 'package:tcc/mobx/assuntosController.dart';
-import 'package:tcc/mobx/conquistasController.dart';
-import 'package:tcc/mobx/questsController.dart';
-import 'package:tcc/mobx/quizController.dart';
-import 'package:tcc/mobx/userController.dart';
-import 'package:tcc/ui/dashboard.dart';
+import 'package:quizti/firebaseHandlers.dart';
+import 'package:quizti/mobx/assuntosController.dart';
+import 'package:quizti/mobx/conquistasController.dart';
+import 'package:quizti/mobx/questsController.dart';
+import 'package:quizti/mobx/quizController.dart';
+import 'package:quizti/mobx/userController.dart';
+import 'package:quizti/ui/dashboard.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:tcc/mobx/disciplinasController.dart';
-import 'package:tcc/mobx/screenController.dart';
-import 'package:tcc/main.dart';
-import 'package:tcc/widgets/loadingButton.dart';
+import 'package:quizti/mobx/disciplinasController.dart';
+import 'package:quizti/mobx/screenController.dart';
+import 'package:quizti/main.dart';
+import 'package:quizti/widgets/loadingButton.dart';
 
 final db = FirebaseFirestore.instance;
 

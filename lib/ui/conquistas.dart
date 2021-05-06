@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:tcc/mobx/conquistasController.dart';
+import 'package:quizti/mobx/conquistasController.dart';
 
-import 'package:tcc/mobx/userController.dart';
-import 'package:tcc/ui/dashboard.dart';
-import 'package:tcc/main.dart';
+import 'package:quizti/mobx/userController.dart';
+import 'package:quizti/ui/dashboard.dart';
+import 'package:quizti/main.dart';
 import 'package:provider/provider.dart';
 
 class Conquistas extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/mobx/userController.dart';
-import 'package:tcc/mobx/conquistasController.dart';
+import 'package:quizti/mobx/userController.dart';
+import 'package:quizti/mobx/conquistasController.dart';
 
 class UserConquistas extends StatelessWidget {
   final String id;

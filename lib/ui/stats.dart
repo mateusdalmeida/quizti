@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/mobx/rankingController.dart';
-import 'package:tcc/mobx/userController.dart';
-import 'package:tcc/ui/dashboard.dart';
-import 'package:tcc/ui/runTest.dart';
-import 'package:tcc/widgets/miniButton.dart';
-import 'package:tcc/utils.dart';
+import 'package:quizti/mobx/rankingController.dart';
+import 'package:quizti/mobx/userController.dart';
+import 'package:quizti/ui/dashboard.dart';
+import 'package:quizti/ui/runTest.dart';
+import 'package:quizti/widgets/miniButton.dart';
+import 'package:quizti/utils.dart';
 
 import '../main.dart';
 

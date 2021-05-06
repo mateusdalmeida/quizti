@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/mobx/disciplinasController.dart';
-import 'package:tcc/mobx/questsController.dart';
-import 'package:tcc/mobx/quizController.dart';
-import 'package:tcc/widgets/detailsItem.dart';
-import 'package:tcc/mobx/assuntosController.dart';
+import 'package:quizti/mobx/disciplinasController.dart';
+import 'package:quizti/mobx/questsController.dart';
+import 'package:quizti/mobx/quizController.dart';
+import 'package:quizti/widgets/detailsItem.dart';
+import 'package:quizti/mobx/assuntosController.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:tcc/widgets/miniButton.dart';
-import 'package:tcc/utils.dart';
+import 'package:quizti/widgets/miniButton.dart';
+import 'package:quizti/utils.dart';
 
 class RunTest extends StatelessWidget {
   final Map listOfIndex;

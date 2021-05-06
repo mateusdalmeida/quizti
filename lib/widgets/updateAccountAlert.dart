@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/main.dart';
-import 'package:tcc/mobx/disciplinasController.dart';
-import 'package:tcc/mobx/screenController.dart';
-import 'package:tcc/mobx/userController.dart';
-import 'package:tcc/ui/dashboard.dart';
-import 'package:tcc/widgets/miniButton.dart';
+import 'package:quizti/main.dart';
+import 'package:quizti/mobx/disciplinasController.dart';
+import 'package:quizti/mobx/screenController.dart';
+import 'package:quizti/mobx/userController.dart';
+import 'package:quizti/ui/dashboard.dart';
+import 'package:quizti/widgets/miniButton.dart';
 
 final db = FirebaseFirestore.instance;
 

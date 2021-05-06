@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/mobx/questsController.dart';
-import 'package:tcc/mobx/screenController.dart';
-import 'package:tcc/mobx/conquistasController.dart';
-import 'package:tcc/mobx/userController.dart';
+import 'package:quizti/mobx/questsController.dart';
+import 'package:quizti/mobx/screenController.dart';
+import 'package:quizti/mobx/conquistasController.dart';
+import 'package:quizti/mobx/userController.dart';
 
-import 'package:tcc/ui/results.dart';
-import 'package:tcc/mobx/assuntosController.dart';
-import 'package:tcc/widgets/detailsItem.dart';
+import 'package:quizti/ui/results.dart';
+import 'package:quizti/mobx/assuntosController.dart';
+import 'package:quizti/widgets/detailsItem.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 

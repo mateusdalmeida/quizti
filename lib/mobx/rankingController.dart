@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:tcc/mobx/userController.dart';
+import 'package:quizti/mobx/userController.dart';
 part 'rankingController.g.dart';
 
 class RankingController = _RankingControllerBase with _$RankingController;

@@ -1,4 +1,4 @@
-package dev.kaipo.tcc
+package dev.kaipo.quizti
 
 import io.flutter.embedding.android.FlutterActivity
 
