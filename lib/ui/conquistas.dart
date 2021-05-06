@@ -81,14 +81,16 @@ class Conquistas extends StatelessWidget {
                                       "\n" +
                                       conquistas[index]['realizaram']
                                           .toString() +
-                                      " usuario",
+                                      " usuário",
                                   style: TextStyle(fontSize: 20)),
                               replacement: Text(
                                   conquistas[index]['description'] +
                                       "\n" +
-                                      conquistas[index]['realizaram']
+                                      (conquistas[index]['realizaram'] == null
+                                              ? "0"
+                                              : conquistas[index]['realizaram'])
                                           .toString() +
-                                      " usuarios",
+                                      " usuários",
                                   style: TextStyle(fontSize: 20)),
                             ),
                             isThreeLine: true,
